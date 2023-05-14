@@ -732,24 +732,57 @@ void DrawPlayer(ImDrawList *Draw)
 			MaxPlayerCount = AimCount;
 			PlayerCount++;
         }
-    sprintf(extra, "人数 : %", 数量);
+    sprintf(extra,"Nunber: %", 数量);
     绘制字体描边(35.0f, 280.0f, 70.0f,ImColor(250,0,0), extra);
-long  int fool = get_module_base(pid,libil2cpp)
 
-    bullet = lsp32(lsp32(lsp32(lsp32(lsp32(fool+0x3A5A34)+0x5C)+0xE0)+0x100)+0x4C);//子弹addr
 
-//内存/////////////////内存////////////////////内存//////////////////内存//////////////
+//内存/////////////////内存////////////////////内存//////////////////内存//////////////////////////////////
+//内存/////////////////内存////////////////////内存//////////////////内存///////////////////////////////////
+//内存/////////////////内存////////////////////内存//////////////////内存////////////////////////////////////
+/*  local t = {"libil2cpp.so", "Cd"}
+    local tt = {0x3A5A34, 0x5C, 0xE0, 0x100, 0x4C}*/
+
+   // bullet = getZZ(getZZ(getZZ(getZZ(getZZ(libil2cpp+0x3A5A34)+0x5C)+0xE0)+0x100)+0x4C);//子弹addr
+    int xxxxi;
+    xxxxi=1;
     if (DrawIo[23])
-    {//范围
-        WriteAddress_FLOAT(libunity+0x95F818,NumIo[3]);
+    {//
+
+        if(xxxxi<1) {
+            xxxxi++;
+            WriteAddress_FLOAT(libunity + 0x95F818, NumIo[3]);
+        }
     }else{
+
+        xxxxi--;
         WriteAddress_FLOAT(libunity+0x95F818,2);
     }
     if (DrawIo[24])
     {//子弹
-        WriteAddress_DWORD(bullet,40);
+        Range();
+      /*  char ljs[64];
+        sprintf(ljs, "/proc/%d/mem", ipid);
+        handles = open(ljs, O_RDWR);
+        if (handles == 0)
+        {
+            puts("获取mem失败!");
+            exit(1);
+        }
+        // 读取基址
+        puts("\n开始基址搜索");
+        char mnames[] = "libil2cpp.so";	// 基址入口模块
+        //Xa用getXa,Cb用getbss,Cd用getCd
+        bullet = get_bss(ipid, mnames);
+        //64位游戏把lsp32换成lsp64即可
+        long int a1 = lsp32(lsp32(lsp32(lsp32(bullet + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
+        printf("基址搜索完成\n");
+        ImGui::Text(("bullet: %lx "),bullet);
+        ImGui::Text(("子弹a1: %lx "),a1);
+        WriteAddress_DWORD(a1, 40);
+        //修改支持所有类型
+        puts("\n修改成功\n");
     }else{
-        WriteAddress_DWORD(bullet,2);
+        WriteAddress_DWORD(bullet,2);*/
     }
 
       

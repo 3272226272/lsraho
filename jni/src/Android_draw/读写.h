@@ -47,6 +47,21 @@
 #include <string>
 #include <codecvt>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 文字转码
 #ifndef __UTF_H__
 #define __UTF_H__
@@ -372,6 +387,131 @@ int getPID(const char *packageName)
 }
 
 //获取结束
+/*unsigned long int getXa(int pid, const char *module_name)
+{
+    FILE *fp;
+    long addr = 0;
+    char *pch;
+    char filename[64];
+    char line[1024];
+    snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
+    fp = fopen(filename, "r");
+    if (fp != NULL)
+    {
+        while (fgets(line, sizeof(line), fp))
+        {
+            if (strstr(line, module_name))
+            {
+                pch = strtok(line, "-");
+                addr = strtoul(pch, NULL, 16);
+                if (addr == 0x8000)
+                    addr = 0;
+                break;
+            }
+        }
+        fclose(fp);
+    }
+    return addr;
+}
+
+unsigned long getbss(int pid, const char *module_name)
+{
+    FILE *fp;
+    long addr = 0;
+    char *pch;
+    char filename[64];
+    char line[1024];
+    snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
+    fp = fopen(filename, "r");
+    bool is = false;
+    if (fp != NULL)
+    {
+        while (fgets(line, sizeof(line), fp))
+        {
+            if (strstr(line, module_name ))
+            {
+                is = true;
+            }
+            if (is)
+            {
+                if (strstr(line, "[anon:.bss]"))
+                {
+                    sscanf(line, "%X", &addr);
+                    break;
+                }
+            }
+        }
+        fclose(fp);
+    }
+    return addr;
+}
+
+unsigned long getCd(int pid, const char *module_name)
+{
+    FILE *fp;
+    long addr = 0;
+    char *pch;
+    char filename[64];
+    char line[1024];
+    snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
+    fp = fopen(filename, "r");
+    char str[100];
+    sprintf(str, "-%x", getbss(pid, module_name));
+    if (fp != NULL)
+    {
+        while (fgets(line, sizeof(line), fp))
+        {
+            if (strstr(line, str ))
+            {
+                sscanf(line, "%X", &addr);
+                break;
+            }
+        }
+        fclose(fp);
+    }
+    return addr;
+}
+
+*/
+/*
+//long int handle;
+float gainF(long int addr)
+{
+    float var = 0;
+    pread64(handle, &var, 4, addr);
+    return var;
+}*/
+/*
+int gainD(long int addr)
+{
+    int var = 0;
+    pread64(handle, &var, 4, addr);
+    return var;
+}*/
+//32位指针
+/*
+long int lsp32(long int addr)
+{
+    long int var = 0;
+    pread64(handle, &var, 4, addr);
+    return var;
+}*/
+
+//64位指
+ /*
+long int lsp64(long int addr)
+{
+    long int var = 0;
+    pread64(handle, &var, 8, addr);
+    return var;
+}*/
+
+//F类型
+/*
+float WriteAddress_FLOAT(long int addr, float value) {
+	pwrite64(handle, &value, 4, addr);
+	return 0;
+}*/
 
 
 int WriteAddress_FLOAT(long int addr, float value)
@@ -383,6 +523,7 @@ int WriteAddress_FLOAT(long int addr, float value)
     pwrite64(handle, &value, 4, addr);
     return 0;
 }
+/*
 int WriteAddress_DWORD(long int addr, int value)
 {
     char lj[64];
@@ -391,7 +532,7 @@ int WriteAddress_DWORD(long int addr, int value)
     handle = open(lj, O_RDWR);
     pwrite64(handle, &value, 4, addr);
     return 0;
-}
+}*/
 
 
 
@@ -449,6 +590,17 @@ unsigned long lsp64(unsigned long addr)
 	vm_readv(addr, &var, 8);
 	return (var);
 }
+/*
+unsigned long lsp32(long int addr)
+{
+    char lj[64];
+    int handle;
+    sprintf(lj, "/proc/%d/mem", pid);
+    handle = open(lj, O_RDWR);
+    long int var = 0;
+    pwrite64(handle, &var, 4, addr);
+    return (var);
+}*/
 
 // 获取基址
 unsigned long get_module_base(int pid, const char *name)
@@ -489,9 +641,40 @@ int readb(int &c, int num) {
   ++c;
   return num;
 }
-
-
+/*
+unsigned long get_bss(int pid, const char *module_name)
+{
+    FILE *fp;
+    long addr = 0;
+    char *pch;
+    char filename[64];
+    char line[1024];
+    snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
+    fp = fopen(filename, "r");
+    bool is = false;
+    if (fp != NULL)
+    {
+        while (fgets(line, sizeof(line), fp))
+        {
+            if (strstr(line, module_name ))
+            {
+                is = true;
+            }
+            if (is)
+            {
+                if (strstr(line, "[anon:.bss]"))
+                {
+                    sscanf(line, "%X", &addr);
+                    break;
+                }
+            }
+        }
+        fclose(fp);
+    }
+    return addr;
+}
 //获取bss基址
+*/
 unsigned long get_module_bss(int pid, const char *module_name)
 {
 	FILE *fp;
