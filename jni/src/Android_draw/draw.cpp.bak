@@ -825,7 +825,7 @@ void tick()
         static bool show_ChildMenu2 = false;
         static bool show_ChildMenu3 = false;	
     	Style.WindowTitleAlign = ImVec2(0.5, 0.5);// 设置标题居中
-		ImGui::Begin("香肠派对"); 
+		ImGui::Begin("香肠派对",ImVec2(0,0));
 		
 		  if(ImGui::BeginChild("##mMenu",ImVec2(250,0),false,ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NavFlattened));
         {

@@ -150,6 +150,7 @@ void ImGuiMenuStyle()
 	NumIo[11] = 1000.0f;
 	NumIo[13] = 0.0f;
     NumIo[14] = 20.0f;
+    NumIo[15] = 1.0f;
 }
 
 
@@ -711,7 +712,7 @@ void DrawPlayer(ImDrawList *Draw)
 				//距离
 				std::string s;
                 s += std::to_string((int)Distance);
-                s += "m";
+                s += "[m]";
                 auto textSize = ImGui::CalcTextSize(s.c_str(), 0, 28.f);
 				ImGui::GetForegroundDrawList()->AddText(NULL, 25.f, {MIDDLE - 25, TOP - 45},jlcolor, s.c_str());
 				}
@@ -720,7 +721,7 @@ void DrawPlayer(ImDrawList *Draw)
 				{
 				//信息
 				std::string s;
-				s += "队伍";
+				s += "[队伍]";
            		s += std::to_string(TeamID);
 				s += " － ";
 				s += PlayerName;
@@ -732,18 +733,14 @@ void DrawPlayer(ImDrawList *Draw)
 			MaxPlayerCount = AimCount;
 			PlayerCount++;
         }
-    sprintf(extra,"Nunber: %", 数量);
+    sprintf(extra, "   人数 : %", 数量);
     绘制字体描边(35.0f, 280.0f, 70.0f,ImColor(250,0,0), extra);
 
 
 //内存/////////////////内存////////////////////内存//////////////////内存//////////////////////////////////
 //内存/////////////////内存////////////////////内存//////////////////内存///////////////////////////////////
 //内存/////////////////内存////////////////////内存//////////////////内存////////////////////////////////////
-/*  local t = {"libil2cpp.so", "Cd"}
-    local tt = {0x3A5A34, 0x5C, 0xE0, 0x100, 0x4C}*/
 
-   // bullet = getZZ(getZZ(getZZ(getZZ(getZZ(libil2cpp+0x3A5A34)+0x5C)+0xE0)+0x100)+0x4C);//子弹addr
-int gf;
     if (DrawIo[23])
     {
         for (int i = 0; i < 1; ++i) {
@@ -757,7 +754,8 @@ int gf;
     }
     if (DrawIo[24])
     {//子弹
-        int id = jz_getPID("com.sofunny.Sausage");
+
+      /*  int id = jz_getPID("com.sofunny.Sausage");
         char ljs[64];
         sprintf(ljs, "/proc/%d/mem", id);
         handles = open(ljs, O_RDWR);
@@ -767,19 +765,13 @@ int gf;
             exit(1);
         }
         // 读取基址
-        puts("\n开始基址搜索");
-        //char mnames[] = ;	// 基址入口模块
-
-        //Xa用getXa,Cb用getbss,Cd用getCd
-        long int fool = jz_get_bss(id,"libil2cpp.so");
+        long int fool = jz_get_bss(id,"libil2cpp.so");   //Xa用getXa,Cb用getbss,Cd用getCd
         //64位游戏把lsp32jz换成lsp64jz即可0xBD098, 0x5C, 0x68, 0x100, 0x4C}
         long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
-        printf("基址搜索完成\n");
-        printf("\n阳光地址=%lx\n", a1);
+        printf("\n地址=%lx\n", a1);
         WriteAddress_DWORDjz(a1, 40);
         //修改支持所有类型
-        puts("\n修改成功\n");
-
+*/
     }
 
       
@@ -871,8 +863,8 @@ void tick()
 		static bool show_ChildMenu1 = true;
         static bool show_ChildMenu2 = false;
         static bool show_ChildMenu3 = false;	
-    	Style.WindowTitleAlign = ImVec2(0.5, 0.5);// 设置标题居中
-		ImGui::Begin("香肠派对"); 
+    	Style.WindowTitleAlign = ImVec2(0.5,0.5);// 设置标题居中
+		ImGui::Begin("香肠派对");
 		
 		  if(ImGui::BeginChild("##mMenu",ImVec2(250,0),false,ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NoScrollbar|ImGuiWindowFlags_NavFlattened));
         {
@@ -1024,7 +1016,7 @@ void tick()
         Style.Colors[ImGuiCol_PlotHistogramHovered]  = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
         Style.Colors[ImGuiCol_TextSelectedBg]        = ImVec4(0.00f, 0.00f, 1.00f, 0.35f);
         }
-       if(ImGui::Button("绘制初始画"))
+       if(ImGui::Button("绘制初始画",ImVec2(245,70)))
        {
       DrawInit(); 
        }                
@@ -1032,7 +1024,7 @@ void tick()
 
 
 	    if (ImGui::CollapsingHeader("人物绘制功能")) {
-        if (ImGui::Button("一键全开"))
+        if (ImGui::Button("一键全开",ImVec2(245,70)))
         {   
             DrawIo[1] = true;
 			DrawIo[2] = true;
@@ -1042,7 +1034,7 @@ void tick()
             DrawIo[22] = true;
             }
 		ImGui::SameLine();
-		if(ImGui::Button("一键全关"))
+		if(ImGui::Button("一键全关",ImVec2(245,70)))
 		{
 			DrawIo[1] = false;
 			DrawIo[2] = false;
@@ -1066,16 +1058,16 @@ void tick()
         ImGui::SameLine();
         ImGui::SliderFloat("", &NumIo[14],20.0f,300.0f,"%.0f",1);         
 		}
-     if (ImGui::CollapsingHeader("物资绘制功能")) 
+     if (ImGui::CollapsingHeader("物资绘制功能"))
      {
 	 ImGui::Text(("物资数组: %lX "),物资数组);
      ImGui::Checkbox("物资绘制开关", &DrawIo[6]);
      ImGui::Checkbox("绘制枪械", &DrawIo[7]);    
          
      }
-     if (ImGui::CollapsingHeader("内存功能")) 
+     if (ImGui::CollapsingHeader("内存功能"))
      {
-        ImGui::Checkbox("范围", &DrawIo[23]);
+    /*    ImGui::Checkbox("范围", &DrawIo[23]);
 		ImGui::SameLine();
         ImGui::Checkbox("子弹", &DrawIo[24]);
 		ImGui::EndTabBar();  
@@ -1084,15 +1076,34 @@ void tick()
 		ImGui::Checkbox("绘制距离", &DrawIo[26]);
 		ImGui::EndTabBar();  
 		ImGui::Checkbox("绘制信息", &DrawIo[27]);			  
-        ImGui::SameLine();
-            if(ImGui::Button("范围")){                       
-          //  WriteAddress_FLOAT(libunity+0x95F818,NumIo[3]);
+        ImGui::SameLine();*/
+            if(ImGui::Button("范围",ImVec2(245,70))){
+            WriteAddress_FLOAT(libunity+0x95F818,NumIo[3]);
                }
+         if(ImGui::Button("子弹数量",ImVec2(245,70))){
+             int id = jz_getPID("com.sofunny.Sausage");
+             char ljs[64];
+             sprintf(ljs, "/proc/%d/mem", id);
+             handles = open(ljs, O_RDWR);
+             if (handles == 0)
+             {
+                 puts("获取mem失败!");
+                 exit(1);
+             }
+             // 读取基址
+             long int fool = jz_get_bss(id,"libil2cpp.so");   //Xa用getXa,Cb用getbss,Cd用getCd
+             //64位游戏把lsp32jz换成lsp64jz即可0xBD098, 0x5C, 0x68, 0x100, 0x4C}
+             long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
+             printf("\n地址=%lx\n", a1);
+             WriteAddress_DWORDjz(a1, NumIo[15]);
+         }
             ImGui::Text("先调整范围大小再开范围");
             ImGui::Text("范围大小");
             ImGui::SameLine();
-             ImGui::SliderFloat("大小", &NumIo[3],10.0f,30.0f,"%.0f",1);         
-         
+            ImGui::SliderFloat("大小", &NumIo[3],10.0f,30.0f,"%.0f",1);
+            ImGui::Text("子弹数量");
+            ImGui::SameLine();
+            ImGui::SliderFloat("数量", &NumIo[15],1.0f,999.0f,"%.0f",1);
      }
       
          ImGui::Text(("游戏入口libil2cpp: %lX "), libil2cpp);

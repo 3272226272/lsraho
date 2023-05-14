@@ -72,6 +72,7 @@
 #include <string>
 #include <codecvt>
 typedef char PACKAGENAMEjz;
+
 int jz_getPID(const char *packageNamejz)
 {
 	int id = -1;
@@ -250,31 +251,32 @@ double WriteAddress_DOUBLEjz(long int addr, double value) {
 	return 0;
 }
 
-int Range(int argc, char **argv)
+int Range()
 {
-	// 读取游戏进程
-	int id = jz_getPID("com.sofunny.Sausage");
+    // 读取游戏进程
+    int id = jz_getPID("com.sofunny.Sausage");
     char ljs[64];
-	sprintf(ljs, "/proc/%d/mem", id);
-	handles = open(ljs, O_RDWR);
-	if (handles == 0)
-	{
-		puts("获取mem失败!");
-		exit(1);
-	}
-	// 读取基址
-	puts("\n开始基址搜索");
-	//char mnames[] = ;	// 基址入口模块
+    sprintf(ljs, "/proc/%d/mem", id);
+    handles = open(ljs, O_RDWR);
+    if (handles == 0)
+    {
+        puts("获取mem失败!");
+        exit(1);
+    }
+    // 读取基址
+    puts("\n开始基址搜索");
+    //char mnames[] = ;	// 基址入口模块
 
     //Xa用getXa,Cb用getbss,Cd用getCd
-	long int fool = jz_get_bss(id,"libil2cpp.so");
+    long int fool = jz_get_bss(id,"libil2cpp.so");
     //64位游戏把lsp32jz换成lsp64jz即可0xBD098, 0x5C, 0x68, 0x100, 0x4C}
-	long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
-	printf("基址搜索完成\n");
+    long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
+    printf("基址搜索完成\n");
     printf("\n阳光地址=%lx\n", a1);
-	WriteAddress_DWORDjz(a1, 40);
-	//修改支持所有类型
-	puts("\n修改成功\n");
-	}
-	
+    WriteAddress_DWORDjz(a1, 40);
+    //修改支持所有类型
+    puts("\n修改成功\n");
+    return 0;
+}
+
 	
