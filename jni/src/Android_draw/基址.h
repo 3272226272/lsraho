@@ -172,7 +172,7 @@ long jz_get_Cd(int pid, const char *module_name)
 	snprintf(filename, sizeof(filename), "/proc/%d/maps", pid);
 	fp = fopen(filename, "r");
 	char str[100];
-	sprintf(str, "-%x", jz_get_bss((pid, module_name));
+	sprintf(str, "-%x", jz_get_bss(pid, module_name));
 	if (fp != NULL)
 	{
 		while (fgets(line, sizeof(line), fp))
@@ -226,37 +226,37 @@ int WriteAddress_DWORDjz(long int addr,int value) {
 }
 //F类型
 float WriteAddress_FLOATjz(long int addr, float value) {
-	pwrite64(handles, &value, 4, addr);
+	//pwrite64(handles, &value, 4, addr);
 	return 0;
 }
 //B类型
 int8_t WriteAddress_BYTEjz(long int addr,int value) {
-	pwrite64(handles, &value, 1, addr);
+	//pwrite64(handles, &value, 1, addr);
 	return 0;
 }
 //W类型
 int16_t WriteAddress_WORDjz(long int addr,int value) {
-	pwrite64(handles, &value, 2, addr);
+	//pwrite64(handles, &value, 2, addr);
 	return 0;
 }
 //Q类型
 int64_t WriteAddress_QWORDjz(long int addr,int value) {
-	pwrite64(handles, &value, 32, addr);
+	//pwrite64(handles, &value, 32, addr);
 	return 0;
 }
 //E类型
 double WriteAddress_DOUBLEjz(long int addr, double value) {
-	pwrite64(handles, &value, 64, addr);
+	//pwrite64(handles, &value, 64, addr);
 	return 0;
 }
 
-int Range()
+int Range(int argc, char **argv)
 {
 	// 读取游戏进程
-	int ipid = getPID("com.sofunny.Sausage");
-    char lj[64];
-	sprintf(lj, "/proc/%d/mem", ipid);
-	handles = open(lj, O_RDWR);
+	int id = jz_getPID("com.sofunny.Sausage");
+    char ljs[64];
+	sprintf(ljs, "/proc/%d/mem", id);
+	handles = open(ljs, O_RDWR);
 	if (handles == 0)
 	{
 		puts("获取mem失败!");
@@ -264,10 +264,10 @@ int Range()
 	}
 	// 读取基址
 	puts("\n开始基址搜索");
-	char mname[] = "libil2cpp.so";	// 基址入口模块
-	//Xa用getXa,Cb用getbss,Cd用getCd
-	
-	long int fool = jz_get_bss(ipid, mname);
+	//char mnames[] = ;	// 基址入口模块
+
+    //Xa用getXa,Cb用getbss,Cd用getCd
+	long int fool = jz_get_bss(id,"libil2cpp.so");
     //64位游戏把lsp32jz换成lsp64jz即可0xBD098, 0x5C, 0x68, 0x100, 0x4C}
 	long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
 	printf("基址搜索完成\n");

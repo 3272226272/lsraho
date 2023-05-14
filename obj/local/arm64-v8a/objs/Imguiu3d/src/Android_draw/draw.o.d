@@ -79,7 +79,7 @@ C:/Users/AHO/Desktop/cc/香肠派对触摸/obj/local/arm64-v8a/objs/Imguiu3d/src
   C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/include.h \
   C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/读写.h \
   D:/android-ndk-r25c/build/../sources/cxx-stl/llvm-libc++/include/codecvt \
-  C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/基址.cpp \
+  C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/基址.h \
   C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/include/Android_touch/touch.h \
   D:/android-ndk-r25c/build/../sources/cxx-stl/llvm-libc++/include/cmath
 
@@ -241,7 +241,7 @@ C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/读写.h:
 
 D:/android-ndk-r25c/build/../sources/cxx-stl/llvm-libc++/include/codecvt:
 
-C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/基址.cpp:
+C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/src/Android_draw/基址.h:
 
 C:/Users/AHO/Desktop/cc/香肠派对触摸/jni/include/Android_touch/touch.h:
 

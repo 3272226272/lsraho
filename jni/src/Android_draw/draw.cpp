@@ -743,25 +743,23 @@ void DrawPlayer(ImDrawList *Draw)
     local tt = {0x3A5A34, 0x5C, 0xE0, 0x100, 0x4C}*/
 
    // bullet = getZZ(getZZ(getZZ(getZZ(getZZ(libil2cpp+0x3A5A34)+0x5C)+0xE0)+0x100)+0x4C);//子弹addr
-    int xxxxi;
-    xxxxi=1;
+int gf;
     if (DrawIo[23])
-    {//
-
-        if(xxxxi<1) {
-            xxxxi++;
+    {
+        for (int i = 0; i < 1; ++i) {
             WriteAddress_FLOAT(libunity + 0x95F818, NumIo[3]);
         }
     }else{
+        for (int i = 0; i < 1; ++i) {
+            WriteAddress_FLOAT(libunity+0x95F818,2);
+        }
 
-        xxxxi--;
-        WriteAddress_FLOAT(libunity+0x95F818,2);
     }
     if (DrawIo[24])
     {//子弹
-        Range();
-      /*  char ljs[64];
-        sprintf(ljs, "/proc/%d/mem", ipid);
+        int id = jz_getPID("com.sofunny.Sausage");
+        char ljs[64];
+        sprintf(ljs, "/proc/%d/mem", id);
         handles = open(ljs, O_RDWR);
         if (handles == 0)
         {
@@ -770,19 +768,18 @@ void DrawPlayer(ImDrawList *Draw)
         }
         // 读取基址
         puts("\n开始基址搜索");
-        char mnames[] = "libil2cpp.so";	// 基址入口模块
+        //char mnames[] = ;	// 基址入口模块
+
         //Xa用getXa,Cb用getbss,Cd用getCd
-        bullet = get_bss(ipid, mnames);
-        //64位游戏把lsp32换成lsp64即可
-        long int a1 = lsp32(lsp32(lsp32(lsp32(bullet + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
+        long int fool = jz_get_bss(id,"libil2cpp.so");
+        //64位游戏把lsp32jz换成lsp64jz即可0xBD098, 0x5C, 0x68, 0x100, 0x4C}
+        long int a1 = lsp32jz(lsp32jz(lsp32jz(lsp32jz(fool + 0xBD098) + 0x5C)+0x68)+0x100)+0x4C;
         printf("基址搜索完成\n");
-        ImGui::Text(("bullet: %lx "),bullet);
-        ImGui::Text(("子弹a1: %lx "),a1);
-        WriteAddress_DWORD(a1, 40);
+        printf("\n阳光地址=%lx\n", a1);
+        WriteAddress_DWORDjz(a1, 40);
         //修改支持所有类型
         puts("\n修改成功\n");
-    }else{
-        WriteAddress_DWORD(bullet,2);*/
+
     }
 
       
